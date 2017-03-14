@@ -46,7 +46,7 @@ UserSchema
  * Validations
  */
 
-// the below 5 validations only apply if you are signing up traditionally
+// the below 3 validations only apply if you are signing up traditionally
 UserSchema.path('email').validate(function (email) {
   if (this.skipValidation()) return true;
   return email.length;
@@ -69,6 +69,11 @@ UserSchema.path('hashed_password').validate(function (hashed_password) {
   return hashed_password.length && this._password.length;
 }, 'Password cannot be blank');
 
+// Validate on the database level the min counter
+UserSchema.path('currentCounter').validate(function (currentCounter) {
+  if (this.skipValidation()) return true;
+  return currentCounter >= 0
+}, 'Counter should be greater than zero');
 
 /**
  * Pre-save hook

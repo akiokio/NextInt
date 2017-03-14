@@ -45,10 +45,19 @@ exports.getNextCounter = async (function* (req, res) {
     const user = yield User.findByIdAndUpdate(req.user.id,
                                               { $inc: { currentCounter: 1 }},
                                               { new: true });
+    if (!user) {
+      throw {
+        errors: {
+          User: {
+            message: 'User not found'
+          }
+        }
+      };
+    }
     return res.json(user.currentCounter);
-  } catch (err) {
-    const errors = Object.keys(err.errors)
-      .map(field => err.errors[field].message);
+  } catch (error) {
+    const errors = Object.keys(error.errors)
+      .map(field => error.errors[field].message);
     return res.status(400).json({ status: 'error', errors });
   }
 });
@@ -56,24 +65,42 @@ exports.getNextCounter = async (function* (req, res) {
 exports.getCurrentCounter = async (function* (req, res) {
   try {
     const user = yield User.findById(req.user.id);
+    if (!user) {
+      throw {
+        errors: {
+          User: {
+            message: 'User not found'
+          }
+        }
+      };
+    }
     return res.json(user.currentCounter);
-  } catch (err) {
-    const errors = Object.keys(err.errors)
-      .map(field => err.errors[field].message);
+  } catch (error) {
+    console.log(error);
+    const errors = Object.keys(error.errors)
+      .map(field => error.errors[field].message);
     return res.status(400).json({ status: 'error', errors });
   }
 });
 
 exports.setCurrentCounter = async (function* (req, res) {
   try {
-    console.log(req.body);
     const user = yield User.findByIdAndUpdate(req.user.id,
                                               { currentCounter: req.body.current },
-                                              { new: true });
+                                              { new: true, runValidators: true });
+    if (!user) {
+      throw {
+        errors: {
+          User: {
+            message: 'User not found'
+          }
+        }
+      };
+    }
     return res.json(user.currentCounter);
-  } catch (err) {
-    const errors = Object.keys(err.errors)
-      .map(field => err.errors[field].message);
+  } catch (error) {
+    const errors = Object.keys(error.errors)
+      .map(field => error.errors[field].message);
     return res.status(400).json({ status: 'error', errors });
   }
 });
