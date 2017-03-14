@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { wrap: async } = require('co');
+
 const User = mongoose.model('User');
 
 exports.homeController = function(req, res) { 
@@ -19,24 +20,61 @@ exports.createUserController = async(function* (req, res) {
   user.provider = 'local';
   try {
     yield user.save();
-    req.logIn(user, err => {
-      if (err) req.flash('info', 'Sorry! We are not able to log you in!');
-      return res.redirect('/');
-    });
+    const token = User.createJWT(user);
+    return res.json({ status: 'success', token });
   } catch (err) {
     const errors = Object.keys(err.errors)
       .map(field => err.errors[field].message);
-
-    res.render('signup', {
-      title: 'Sign up',
-      errors,
-      user
-    });
+    return res.status(400).json({ status: 'error', errors });
   }
-})
+});
+
+exports.createLoginJWT = function(req, res) {
+  const token = User.createJWT(req.user);
+  return res.json({ status: 'success', token });
+};
 
 exports.logoutController = function (req, res) {
   req.logout();
   res.redirect('/login');
 };
+
+// BUSSINESS LOGIC
+exports.getNextCounter = async (function* (req, res) {
+  try {
+    const user = yield User.findByIdAndUpdate(req.user.id,
+                                              { $inc: { currentCounter: 1 }},
+                                              { new: true });
+    return res.json(user.currentCounter);
+  } catch (err) {
+    const errors = Object.keys(err.errors)
+      .map(field => err.errors[field].message);
+    return res.status(400).json({ status: 'error', errors });
+  }
+});
+
+exports.getCurrentCounter = async (function* (req, res) {
+  try {
+    const user = yield User.findById(req.user.id);
+    return res.json(user.currentCounter);
+  } catch (err) {
+    const errors = Object.keys(err.errors)
+      .map(field => err.errors[field].message);
+    return res.status(400).json({ status: 'error', errors });
+  }
+});
+
+exports.setCurrentCounter = async (function* (req, res) {
+  try {
+    console.log(req.body);
+    const user = yield User.findByIdAndUpdate(req.user.id,
+                                              { currentCounter: req.body.current },
+                                              { new: true });
+    return res.json(user.currentCounter);
+  } catch (err) {
+    const errors = Object.keys(err.errors)
+      .map(field => err.errors[field].message);
+    return res.status(400).json({ status: 'error', errors });
+  }
+});
 

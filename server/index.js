@@ -40,7 +40,7 @@ mongoose.connect(process.env.mongoURL, (error) => {
 });
 
 app.use(compression());
-app.use(bodyParser.json({ limit: '20mb' }));
+app.use(bodyParser.json({ limit: '20mb', type: '*/*' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
 
 // CookieParser should be above session

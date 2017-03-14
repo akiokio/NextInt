@@ -19,19 +19,13 @@ router.get('*', function(req, res, next) {
 
 // Routes
 router.get('/login', controllers.loginController);
-router.post('/login',  passport.authenticate('local', 
-       { successRedirect: '/',
-         failureRedirect: '/login',
-         failureFlash: true
-       }));
-router.get('/signup', controllers.singupController);
-router.post('/signup', controllers.createUserController);
-router.get('/logout', controllers.logoutController);
+router.post('/v1/login', passport.authenticate('local'), controllers.createLoginJWT);
+router.post('/v1/signup', controllers.createUserController);
+router.get('/v1/logout', controllers.logoutController);
 
-// TODO
-// router.get('/v1/next', authenticationMiddleware.requiresLogin, controllers.logoutController);
-// router.get('/v1/current', authenticationMiddleware.requiresLogin, controllers.logoutController);
-// router.put('/v1/current', authenticationMiddleware.requiresLogin, controllers.logoutController);
+router.get('/v1/next', authenticationMiddleware.requiresLogin, controllers.getNextCounter);
+router.get('/v1/current', authenticationMiddleware.requiresLogin, controllers.getCurrentCounter);
+router.put('/v1/current', authenticationMiddleware.requiresLogin, controllers.setCurrentCounter);
 
 
 router.get('/', authenticationMiddleware.requiresLogin, controllers.homeController);

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 const Schema = mongoose.Schema;
 const oAuthTypes = [
@@ -20,7 +21,8 @@ const UserSchema = new Schema({
   twitter: {},
   github: {},
   google: {},
-  linkedin: {}
+  linkedin: {},
+  currentCounter: { type: Number, default: 0 },
 });
 
 const validatePresenceOf = value => value && value.length;
@@ -159,6 +161,17 @@ UserSchema.statics = {
     return this.findOne(options.criteria)
       .select(options.select)
       .exec(cb);
+  },
+
+  createJWT: function (user) {
+    const token = jwt.sign({
+      id: user._id,
+      email: user.email,
+    }, process.env.JWT_SECRET, {
+      expiresIn: '30d',
+    });
+
+    return token;
   }
 };
 

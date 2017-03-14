@@ -7,7 +7,7 @@ block content
         h1.display-4.m-b-2 Log in
 
         // register form
-        form(method='POST' action='/login')
+        form(method='POST' action='/v1/login')
           input(type="hidden", name="_csrf", value="#{csrf_token}")
           div.form-group
             label(for='email') Email:
