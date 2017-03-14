@@ -1,0 +1,19 @@
+extends base
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Sign Up
+
+        // register form
+        form(method='POST' action='/signup')
+          div.form-group
+            label(for='email') Email:
+            input#email.form-control(type='email', placeholder='enter your email' name='email' value='test@test.com')
+            label(for='pw') Password:
+            input#password.form-control(type='password' name='password' value='test')
+          div.form-group
+            label(for='password2') Confirm Password:
+            input#password2.form-control(type='password' name='confirmPassword' value='test')
+          button.btn.btn-primary(type='submit') Sign up
