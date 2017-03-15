@@ -3,14 +3,17 @@ extends base
 block content
   .main.container
     .row
-      .col-md-6.col-md-offset-3
-        h1.display-4.m-b-2 Home page
-    .row
-      .col-md-6
-        p Your current int
+      .col-md-12
+        h1.all-center Your current counter
+        h1(id='counter').all-center #{counter}
 
-        div.controls
-          button(type="button").btn.btn-primary.get-next Get Next
-          button(type="button").btn.btn-primary.reset Reset
+        div.controls.all-center
+            button(id='getNext' type="button").btn.btn-block.btn-lg.btn-round.btn-info.mt-0 Get Next
+
+        div.set-current.all-center
+          h2.col-12 Set your counter value
+          form(name='setNewCounterForm' id='setNewCounterForm')
+            input(type='number' min='0' id='newCounter' name='newCounter' placeholder='New counter' required).form-control
+            button(type="submit").btn.btn-block.btn-lg.btn-round.btn-info.mt-0 Update Counter
 
         

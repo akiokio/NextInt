@@ -68,6 +68,7 @@ app.use(flash());
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
+app.use(express.static(join(__dirname, 'public')));
 
 // Routes
 app.use(routes);

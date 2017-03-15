@@ -3,11 +3,17 @@ const { wrap: async } = require('co');
 
 const User = mongoose.model('User');
 
-exports.homeController = function(req, res) { 
-  res.render('index', { title: 'Wellcome to your NextInt' } );
-};
+exports.homeController = async (function* (req, res) {
+  const user = yield User.findById(req.user.id);
+  const counter = user.currentCounter;
+  res.render('index', { title: 'Wellcome to your NextInt', counter } );
+});
 
 exports.loginController = function(req, res) {
+  res.render('login', { title: 'Login' } );
+};
+
+exports.loginFrontendController = function(req, res) {
   res.render('login', { title: 'Login' } );
 };
 
@@ -21,7 +27,9 @@ exports.createUserController = async(function* (req, res) {
   try {
     yield user.save();
     const token = User.createJWT(user);
-    return res.json({ status: 'success', token });
+    req.logIn(user, err => { 
+      return res.json({ status: 'success', token });
+    });
   } catch (err) {
     const errors = Object.keys(err.errors)
       .map(field => err.errors[field].message);
@@ -31,7 +39,10 @@ exports.createUserController = async(function* (req, res) {
 
 exports.createLoginJWT = function(req, res) {
   const token = User.createJWT(req.user);
-  return res.json({ status: 'success', token });
+  req.logIn(req.user, err => { 
+    if (err) req.flash('info', 'Sorry! We are not able to log you in!'); 
+    return res.json({ status: 'success', token });
+  });
 };
 
 exports.logoutController = function (req, res) {

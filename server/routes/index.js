@@ -4,6 +4,7 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 const controllers = require('../controllers');
 const authenticationMiddleware = require('../middlewares/authentication');
+const frontendMiddleware = require('../middlewares/frontend');
 
 router.get('*', function(req, res, next) {
   // put user into res.locals for easy access from templates
@@ -17,17 +18,20 @@ router.get('*', function(req, res, next) {
   next();
 });
 
-// Routes
-router.get('/login', controllers.loginController);
+// API Routes
 router.post('/v1/login', passport.authenticate('local'), controllers.createLoginJWT);
 router.post('/v1/signup', controllers.createUserController);
-router.get('/v1/logout', controllers.logoutController);
 
+// API PROTECTED ROUTES
 router.get('/v1/next', authenticationMiddleware.requiresLogin, controllers.getNextCounter);
 router.get('/v1/current', authenticationMiddleware.requiresLogin, controllers.getCurrentCounter);
 router.put('/v1/current', authenticationMiddleware.requiresLogin, controllers.setCurrentCounter);
 
-
-router.get('/', authenticationMiddleware.requiresLogin, controllers.homeController);
+// Frontend routes
+router.get('/login', controllers.loginController);
+router.post('/login', controllers.loginFrontendController);
+router.get('/signup', controllers.singupController);
+router.get('/logout', controllers.logoutController);
+router.get('/', frontendMiddleware.requiresLogin, controllers.homeController);
 
 module.exports = router;

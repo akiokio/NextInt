@@ -3,13 +3,12 @@ html
     title= title
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', rel='stylesheet' integrity='sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ' crossorigin='anonymous')
-
+    link(href='/css/gsdk.css' rel='stylesheet' )
+    link(href='/css/app.css' rel='stylesheet' )
   body
-    nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.mb-4
-      button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
-        span.navbar-toggler-icon
+    nav.navbar.mb-4.navbar-ct-azure.all-center
       a.navbar-brand(href='/') Next Int
-      #navbarCollapse.collapse.navbar-collapse
+      #navbarCollapse2.navbar-collapse
         ul.navbar-nav.mr-auto
           if (loggedIn)
             li.nav-item.active
@@ -17,12 +16,12 @@ html
                 | Home 
                 span.sr-only (current)
             li
-              a.nav-link(href="/v1/logout", title="logout") Logout
+              a.nav-link(href="/logout", title="logout") Logout
           else
             li.nav-item
-              a.nav-link(href='/v1/login') Login
+              a.nav-link(href='/login') Login
             li.nav-item
-              a.nav-link(href='/v1/signup') Signup
+              a.nav-link(href='/signup') Signup
 
     div.container
       .messages
@@ -34,3 +33,4 @@ html
     script(src='https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js' integrity='sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn' crossorigin='anonymous')
+    script(src='/js/app.js')

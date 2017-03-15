@@ -1,6 +1,12 @@
 const jwt = require('jsonwebtoken');
 
 exports.requiresLogin = function (req, res, next) {
+  if (!req.headers['authorization']) {
+    return res.status(403).send({
+      success: false,
+      message: 'No token provided.',
+    });
+  }
   const token = req.headers['authorization'].split(' ')[1];
   if (token) {
     try {

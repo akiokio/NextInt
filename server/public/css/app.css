@@ -1,0 +1,28 @@
+/* GENERICS */
+.all-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.navBar-nav,
+.navBar-nav li {
+  display: inline-block;
+}
+
+.controls {
+  margin: 25px 0;
+}
+.controls button {
+  margin: 0 10px;
+  max-width: 300px;
+}
+
+#setNewCounterForm input {
+  margin: 10px 0;
+}
