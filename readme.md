@@ -21,6 +21,8 @@ The project will be available at: http://localhost:3000
 - Get the next integer in the sequence - POST: https://thinkific.akiosakae.com/v1/next (Protected)
 - Get the current integer - GET: https://thinkific.akiosakae.com/v1/current (Protected)
 - Reset the current integer - PUT: https://thinkific.akiosakae.com/v1/current (Protected)
+- Signup - POST: https://thinkific.akiosakae.com/v1/signup (Public)
+- Login - POST: https://thinkific.akiosakae.com/v1/login (Public)
 
 ## Quick curl commands using a dummy account and token
 **Get the next integer in the sequence:**
