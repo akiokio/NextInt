@@ -10,10 +10,10 @@ block content
         form(id='signupForm' method='POST' action='/signup')
           div.form-group
             label(for='email') Email:
-            input#email.form-control(type='email', placeholder='enter your email' name='email' value='test@test.com')
+            input#email.form-control(type='email', placeholder='enter your email' name='email')
             label(for='pw') Password:
-            input#password.form-control(type='password' name='password' value='test')
+            input#password.form-control(type='password' name='password')
           div.form-group
             label(for='password2') Confirm Password:
-            input#password2.form-control(type='password' name='confirmPassword' value='test')
+            input#password2.form-control(type='password' name='confirmPassword')
           button.btn.btn-primary(type='submit') Sign up
