@@ -1,6 +1,8 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const mongoose = require('mongoose');
+const { wrap: async } = require('co');
 
 const User = mongoose.model('User');
 
@@ -28,3 +30,32 @@ passport.use(new LocalStrategy({
     });
   }
 ));
+
+// Use the GoogleStrategy within Passport.
+//   Strategies in passport require a `verify` function, which accept
+//   credentials (in this case, a token, tokenSecret, and Google profile), and
+//   invoke a callback with a user object.
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "/auth/google/callback"
+  },
+  async (function* (accessToken, refreshToken, profile, done) {
+      const options = {
+        criteria: { googleId: profile.id },
+        select: 'email hashed_password salt provider'
+      };
+      User.load(options, async (function* (err, user) {
+        // New user
+        if (!user) {
+          const user = new User({
+            googleId: profile.id,
+            google: profile,
+          });
+          user.provider = 'google';
+          yield user.save();
+        }
+        return done(null, user);
+      }));
+  }
+)));

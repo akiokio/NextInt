@@ -26,3 +26,7 @@ h1, h2 {
 #setNewCounterForm input {
   margin: 10px 0;
 }
+
+.extra-logins button {
+  cursor: pointer;
+}

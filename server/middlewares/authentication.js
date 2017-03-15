@@ -18,7 +18,10 @@ exports.requiresLogin = function (req, res, next) {
       req.token = token;
       next();
     } catch(err) {
-      return res.json({ success: false, message: 'Failed to authenticate token.' });
+      return res.status(400).json({
+        success: false,
+        message: 'Failed to authenticate token.'
+      });
     }
   }
   else {

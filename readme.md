@@ -10,8 +10,12 @@ yarn install
 mv sample.env .env
 yarn start
 ```
-
 The project will be availabe at: http://localhost:3000
+
+## Considerations
+- Note That the sample file only contains a sandbox mongo url and for security reasons the social auth keys are dummies
+- The social login works live
+- Due to time contraints only google login is enabled
 
 ## LIVE API ENDPOINTS
 POST: https://thinkific.akiosakae.com/v1/next (Protected)

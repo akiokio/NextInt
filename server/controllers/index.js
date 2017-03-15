@@ -39,9 +39,19 @@ exports.createUserController = async(function* (req, res) {
 
 exports.createLoginJWT = function(req, res) {
   const token = User.createJWT(req.user);
-  req.logIn(req.user, err => { 
+  req.logIn(req.user, err => {
+    res.cookie('token', token, { maxAge: 900000, httpOnly: false });
     if (err) req.flash('info', 'Sorry! We are not able to log you in!'); 
     return res.json({ status: 'success', token });
+  });
+};
+
+exports.createLoginJWTAndPass = function(req, res, next) {
+  const token = User.createJWT(req.user);
+  req.logIn(req.user, err => {
+    res.cookie('token', token, { maxAge: 900000, httpOnly: false });
+    if (err) req.flash('info', 'Sorry! We are not able to log you in!'); 
+    next();
   });
 };
 

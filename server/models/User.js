@@ -17,11 +17,8 @@ const UserSchema = new Schema({
   hashed_password: { type: String, default: '' },
   salt: { type: String, default: '' },
   authToken: { type: String, default: '' },
-  facebook: {},
-  twitter: {},
-  github: {},
+  googleId: { type: String, default: '' },
   google: {},
-  linkedin: {},
   currentCounter: { type: Number, default: 0, min:0 },
 });
 

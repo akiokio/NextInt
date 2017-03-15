@@ -3,6 +3,7 @@ html
     title= title
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', rel='stylesheet' integrity='sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ' crossorigin='anonymous')
+    link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet')
     link(href='/css/gsdk.css' rel='stylesheet' )
     link(href='/css/app.css' rel='stylesheet' )
   body
@@ -16,7 +17,7 @@ html
                 | Home 
                 span.sr-only (current)
             li
-              a.nav-link(href="/logout", title="logout") Logout
+              a.nav-link(href="#", title="logout" id='logout') Logout
           else
             li.nav-item
               a.nav-link(href='/login') Login

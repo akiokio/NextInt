@@ -27,6 +27,21 @@ router.get('/v1/next', authenticationMiddleware.requiresLogin, controllers.getNe
 router.get('/v1/current', authenticationMiddleware.requiresLogin, controllers.getCurrentCounter);
 router.put('/v1/current', authenticationMiddleware.requiresLogin, controllers.setCurrentCounter);
 
+// Social Routes
+// GET /auth/google
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'email'] }));
+
+// GET /auth/google/callback
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  controllers.createLoginJWTAndPass,
+  (req, res) => {
+    res.redirect('/')
+  }
+);
+
+
 // Frontend routes
 router.get('/login', controllers.loginController);
 router.post('/login', controllers.loginFrontendController);
