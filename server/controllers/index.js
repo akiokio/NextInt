@@ -76,7 +76,6 @@ exports.getCurrentCounter = async (function* (req, res) {
     }
     return res.json(user.currentCounter);
   } catch (error) {
-    console.log(error);
     const errors = Object.keys(error.errors)
       .map(field => error.errors[field].message);
     return res.status(400).json({ status: 'error', errors });
