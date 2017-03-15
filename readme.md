@@ -18,9 +18,9 @@ The project will be available at: http://localhost:3000
 - Due to time constraints, only google login is enabled
 
 ## LIVE API ENDPOINTS
-- POST: https://thinkific.akiosakae.com/v1/next (Protected)
-- GET: https://thinkific.akiosakae.com/v1/current (Protected)
-- PUT: https://thinkific.akiosakae.com/v1/current (Protected)
+- Get the next integer in the sequence - POST: https://thinkific.akiosakae.com/v1/next (Protected)
+- Get the current integer - GET: https://thinkific.akiosakae.com/v1/current (Protected)
+- Reset the current integer - PUT: https://thinkific.akiosakae.com/v1/current (Protected)
 
 ## Quick curl commands using a dummy account and token
 **Get the next integer in the sequence:**
