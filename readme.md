@@ -10,17 +10,17 @@ yarn install
 mv sample.env .env
 yarn start
 ```
-The project will be availabe at: http://localhost:3000
+The project will be available at: http://localhost:3000
 
 ## Considerations
-- Note That the sample file only contains a sandbox mongo url and for security reasons the social auth keys are dummies
+- Note that the sample file only contains a sandbox mongo url and for security reasons the social auth keys are dummies
 - The social login works live
-- Due to time contraints only google login is enabled
+- Due to time constraints, only google login is enabled
 
 ## LIVE API ENDPOINTS
-POST: https://thinkific.akiosakae.com/v1/next (Protected)
-GET: https://thinkific.akiosakae.com/v1/current (Protected)
-PUT: https://thinkific.akiosakae.com/v1/current (Protected)
+- POST: https://thinkific.akiosakae.com/v1/next (Protected)
+- GET: https://thinkific.akiosakae.com/v1/current (Protected)
+- PUT: https://thinkific.akiosakae.com/v1/current (Protected)
 
 ## Quick curl commands using a dummy account and token
 **Get the next integer in the sequence:**
