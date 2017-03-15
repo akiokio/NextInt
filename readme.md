@@ -19,20 +19,19 @@ GET: https://thinkific.akiosakae.com/v1/current (Protected)
 PUT: https://thinkific.akiosakae.com/v1/current (Protected)
 
 ## Quick curl commands using a dummy account and token
-Get the next integer in the sequence:
+**Get the next integer in the sequence:**
 ```HTTP
 curl https://thinkific.akiosakae.com/v1/next -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4YzhjYTMyNTAyMGYwN2MzOTMxOTNiMiIsImVtYWlsIjoiZHVtbXlAZHVtbXkuY29tIiwiaWF0IjoxNDg5NTUzOTcwLCJleHAiOjE0OTIxNDU5NzB9.LStWa0jpQ1hcwfZ6YgyrP8nJ-NuD4NmNCbPBYl8du60"
 ```
-Get the current integer
+**Get the current integer**
 ```HTTP
 curl https://thinkific.akiosakae.com/v1/current -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4YzhjYTMyNTAyMGYwN2MzOTMxOTNiMiIsImVtYWlsIjoiZHVtbXlAZHVtbXkuY29tIiwiaWF0IjoxNDg5NTUzOTcwLCJleHAiOjE0OTIxNDU5NzB9.LStWa0jpQ1hcwfZ6YgyrP8nJ-NuD4NmNCbPBYl8du60"
 ```
-Reset the current integer
+**Reset the current integer**
 ```HTTP
 curl -X "PUT" https://thinkific.akiosakae.com/v1/current -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4YzhjYTMyNTAyMGYwN2MzOTMxOTNiMiIsImVtYWlsIjoiZHVtbXlAZHVtbXkuY29tIiwiaWF0IjoxNDg5NTUzOTcwLCJleHAiOjE0OTIxNDU5NzB9.LStWa0jpQ1hcwfZ6YgyrP8nJ-NuD4NmNCbPBYl8du60" --data "current=1000"
 ```
-
-Create a new user
+**Create a new user**
 ```HTTP
 curl -X POST -H "Content-Type: application/json" -d '{
   "email": "dummy@gmail.com",
@@ -40,7 +39,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "password2": "123123"
 }' https://thinkific.akiosakae.com/v1/signup
 ```
-Response example:
+*Response example:*
 - Success:
 ```
 {
@@ -55,14 +54,14 @@ Response example:
   "errors":["Email already exists"]
 }
 ```
-
-Login Existing user:
+**Login Existing user:**
 ```HTTP
 curl -X POST -H "Content-Type: application/json" -d '{
   "email": "dummy@gmail.com",
   "password": "123123"
 }' "https://thinkific.akiosakae.com/v1/login"
 ```
+*Response example:*
 - Success:
 ```
 {
