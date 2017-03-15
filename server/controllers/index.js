@@ -85,16 +85,29 @@ exports.getCurrentCounter = async (function* (req, res) {
 
 exports.setCurrentCounter = async (function* (req, res) {
   try {
+    if (!req.body.current) {
+      throw { errors: { currentCounter: {
+        message: 'Please provide a counter'
+      }}};
+    }
+    const newCounter = Number(req.body.current);
+    if (!Number.isInteger(newCounter)) {
+      throw { errors: { currentCounter: {
+        message: 'Counter should be a number'
+      }}};
+    }
+    if (req.body.current < 0) {
+      throw { errors: { currentCounter: {
+        message: 'Counter should be greater than zero'
+      }}};
+    }
     const user = yield User.findByIdAndUpdate(req.user.id,
                                               { currentCounter: req.body.current },
                                               { new: true, runValidators: true });
+
     if (!user) {
       throw {
-        errors: {
-          User: {
-            message: 'User not found'
-          }
-        }
+        errors: { User: { message: 'User not found' } }
       };
     }
     return res.json(user.currentCounter);

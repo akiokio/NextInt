@@ -22,7 +22,7 @@ const UserSchema = new Schema({
   github: {},
   google: {},
   linkedin: {},
-  currentCounter: { type: Number, default: 0 },
+  currentCounter: { type: Number, default: 0, min:0 },
 });
 
 const validatePresenceOf = value => value && value.length;
@@ -68,12 +68,6 @@ UserSchema.path('hashed_password').validate(function (hashed_password) {
   if (this.skipValidation()) return true;
   return hashed_password.length && this._password.length;
 }, 'Password cannot be blank');
-
-// Validate on the database level the min counter
-UserSchema.path('currentCounter').validate(function (currentCounter) {
-  if (this.skipValidation()) return true;
-  return currentCounter >= 0
-}, 'Counter should be greater than zero');
 
 /**
  * Pre-save hook
